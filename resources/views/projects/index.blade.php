@@ -1,3 +1,3 @@
-<div>
-    <h1>OI</h1>
-</div>
+<x-layouts.app>
+    <livewire:projects.index />
+</x-layouts.app>

@@ -1,3 +1,1 @@
-<div>
-    {{-- Do your work, then step back. --}}
-</div>
+<x-proposals :proposals="$project->proposals" />

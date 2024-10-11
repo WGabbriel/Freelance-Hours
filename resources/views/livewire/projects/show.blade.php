@@ -1,3 +1,1 @@
-<div>
-    {{-- The Master doesn't talk, he acts. --}}
-</div>
+<x-projects.card :$project />
