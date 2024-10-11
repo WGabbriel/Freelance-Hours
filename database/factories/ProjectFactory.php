@@ -20,7 +20,7 @@ class ProjectFactory extends Factory
         return [
 
             'title' => collect(fake()->words(5))->join(' '),
-            'description' => fake()->randomHtml(),
+            'description' => 'Hello World',
             'ends_at' => fake()->dateTimeBetween('now', '+3 days'),
             'status' => fake()->randomElement(['open', 'closed']),
             'tech_stack' => fake()->randomElements(['Laravel', 'React', 'Vue', 'Tailwind', 'Bootstrap', 'PHP', 'MySQL', 'PostgreSQL'], 3),

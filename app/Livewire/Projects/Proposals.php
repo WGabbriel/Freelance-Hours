@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class Proposals extends Component
 {
-    
+
     public Project $project;
 
     public function render()
