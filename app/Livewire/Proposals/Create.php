@@ -43,11 +43,33 @@ class Create extends Component
                     ['email' => $this->email],
                     ['hours' => $this->hours]
                 );
-
-            $this->modal = false;
-            $this->dispatch('proposal::created');
+            $this->arrangePositions($proposal);
         });
-}
+
+        $this->project->author->notify(new NewProposal($this->project));
+
+        $this->dispatch('proposal::created');
+        $this->modal = false;
+    }
+
+    public function arrangePositions(Proposal $proposal)
+    {
+        $query = DB::select('
+            select *, row_number() over (order by hours asc) as newPosition
+            from proposals
+            where project_id = :project
+            ', ['project' => $proposal->project_id]);
+        $position = collect($query)->where('id', '=', $proposal->id)->first();
+        $otherProposal = collect($query)->where('position', '=', $position->newPosition)->first();
+        if ($otherProposal) {
+            $proposal->update(['position_status' => 'up']);
+            $oProposal = Proposal::find($otherProposal->id);
+
+            $oProposal->update(['position_status' => 'down']);
+            $oProposal->notify(new PerdeuMane($this->project));
+        }
+        ArrangePositions::run($proposal->project_id);
+    }
 
     public function render()
     {
