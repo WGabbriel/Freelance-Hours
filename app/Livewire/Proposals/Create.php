@@ -45,6 +45,7 @@ class Create extends Component
                 );
 
             $this->modal = false;
+            $this->dispatch('proposal::created');
         });
 }
 
